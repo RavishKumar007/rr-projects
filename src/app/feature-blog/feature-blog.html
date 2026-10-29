@@ -1,0 +1,37 @@
+
+<section class="mb-10">
+  <h2 class="text-2xl font-bold mb-4">Featured Article</h2>
+
+  <article class="card bg-base-100 w-full shadow-sm border border-base-200 overflow-hidden">
+    <figure class="h-64 sm:h-80">
+      <img
+        [src]="data().cover_image"
+        [alt]="data().title"
+        class="w-full h-full object-cover"
+      />
+    </figure>
+
+    <div class="card-body gap-3">
+      <div class="flex items-center gap-3 text-sm text-base-content/70">
+        <span class="badge badge-primary badge-outline">{{data().category_name}}</span>
+        <span>{{data().read_time}}</span>
+      </div>
+
+      <h2 class="card-title text-2xl sm:text-3xl leading-tight">
+        {{data().title}}
+      </h2>
+
+      <p class="text-base-content/70 leading-relaxed">
+        {{data().excerpt}}
+      </p>
+
+      <div class="card-actions justify-start mt-2">
+        <a href="/articles/ai-changing-education"
+           class="btn btn-primary btn-sm">
+          Read Article
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </article>
+</section>

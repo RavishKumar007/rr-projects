@@ -1,0 +1,11 @@
+<h1>Welcome to rr-projects, we write about Technology, People and Culture</h1>
+<hr>
+@if (feature_blog) {
+    <app-feature-blog  [data]="feature_blog"></app-feature-blog>
+}
+
+<hr>
+@if(recent_blog){
+    <app-blog-card [data]="recent_blog"></app-blog-card>
+
+}

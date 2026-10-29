@@ -1,0 +1,72 @@
+
+<div class="min-h-screen flex items-center justify-center bg-base-200 px-4 py-10">
+  <div class="card bg-base-100 w-full max-w-md shadow-xl border border-base-300">
+    <div class="card-body gap-6">
+      <div class="text-center">
+        <div class="avatar placeholder mb-3">
+          <div class="bg-primary text-primary-content rounded-xl w-14">
+            <span class="text-2xl">B</span>
+          </div>
+        </div>
+
+        <h1 class="text-2xl font-bold">Blog Admin</h1>
+        <p class="text-base-content/60 mt-1">
+          Sign in to manage your articles
+        </p>
+      </div>
+
+      <form class="space-y-4" [formGroup]="userForm" (ngSubmit)="submit()">
+        <div class="form-control">
+          <label class="label" for="email">
+            <span class="label-text font-medium">Email address</span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            placeholder="admin@example.com"
+            class="input input-bordered w-full"
+            autocomplete="username"
+            name="email" formControlName="email"
+          />
+          @if (userForm.get('email')?.touched && userForm.get('email')?.invalid) {
+
+            <div class="text-red-500">* this feild is required</div>
+          }
+        </div>
+
+        <div class="form-control">
+          <label class="label" for="password">
+            <span class="label-text font-medium">Password</span>
+          </label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            class="input input-bordered w-full"
+            autocomplete="current-password"
+            name="password" formControlName="password"
+          />
+          @if (userForm.get('password')?.touched && userForm.get('password')?.invalid) {
+
+            <div class="text-red-500">* this feild is required</div>
+          }
+        </div>
+        @if (loginErrormsg) {
+          <div class="py-2 text-red-500">{{loginErrormsg}}</div>
+        }
+
+        <button type="submit" class="btn btn-primary w-full">
+          Sign in
+        </button>
+      </form>
+
+      <div class="divider text-xs text-base-content/50">
+        ADMIN ACCESS
+      </div>
+
+      <a routerLink="/" class="link link-hover text-sm text-center">
+        ← Back to website
+      </a>
+    </div>
+  </div>
+</div>

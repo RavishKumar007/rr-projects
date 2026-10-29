@@ -1,0 +1,259 @@
+
+<div class="min-h-screen bg-base-200">
+  <!-- Top navbar -->
+
+<div class="navbar min-h-16 bg-base-100 border-b border-base-300 px-3 sm:px-5 lg:px-8 gap-3">
+
+  <!-- Brand -->
+  <div class="flex-1 min-w-0">
+    <a
+      routerLink="/admin"
+      class="flex items-center gap-2.5 min-w-0 w-fit"
+    >
+      <div class="bg-primary text-primary-content rounded-xl size-10 shrink-0 flex items-center justify-center font-bold text-xl">
+        B
+      </div>
+
+      <div class="min-w-0">
+        <span class="block text-base sm:text-lg font-bold truncate">
+          Blog Admin
+        </span>
+        <span class="hidden sm:block text-xs text-base-content/60">
+          Content Management
+        </span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex-none flex items-center gap-1.5 sm:gap-3">
+
+    <!-- View Website -->
+    <a
+      routerLink="/"
+      class="btn btn-outline btn-sm gap-2"
+      aria-label="View public website"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        class="size-4 shrink-0"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M2.5 12s3.5-7 9.5-7 9.5 7 9.5 7-3.5 7-9.5 7-9.5-7-9.5-7Z"
+        />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+
+      <span class="hidden sm:inline">View Website</span>
+      <span class="sm:hidden">Website</span>
+    </a>
+
+    <!-- Account dropdown -->
+    <div class="dropdown dropdown-end shrink-0">
+      <button
+        type="button"
+        tabindex="0"
+        class="btn btn-ghost btn-circle"
+        aria-label="Open account menu"
+        aria-haspopup="true"
+      >
+        <div class="avatar placeholder">
+          <div class="bg-neutral text-neutral-content rounded-full size-9">
+            <span class="font-semibold">A</span>
+          </div>
+        </div>
+      </button>
+
+      <ul
+        tabindex="0"
+        class="menu dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow-xl border border-base-300"
+      >
+        <li class="menu-title">
+          <span>Account</span>
+        </li>
+        <li>
+          <a routerLink="/admin/profile">Profile</a>
+        </li>
+        <li>
+          <button type="button">Logout</button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+
+  <div class="drawer lg:drawer-open">
+    <input id="admin-drawer" type="checkbox" class="drawer-toggle" />
+
+    <div class="drawer-content p-4 lg:p-8">
+      <!-- Mobile sidebar toggle -->
+      <label
+        for="admin-drawer"
+        class="btn btn-ghost btn-sm drawer-button lg:hidden mb-4"
+      >
+        ☰ Menu
+      </label>
+
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold">Dashboard</h1>
+        <p class="text-base-content/60 mt-1">
+          Welcome back. Here's an overview of your blog.
+        </p>
+      </div>
+
+      <!-- Statistics -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
+        <div class="stat bg-base-100 rounded-box shadow-sm border border-base-300">
+          <div class="stat-title">Published Articles</div>
+          <div class="stat-value text-primary">42</div>
+          <div class="stat-desc">Articles visible to readers</div>
+        </div>
+
+        <div class="stat bg-base-100 rounded-box shadow-sm border border-base-300">
+          <div class="stat-title">Drafts</div>
+          <div class="stat-value">8</div>
+          <div class="stat-desc">Articles awaiting publication</div>
+        </div>
+
+        <div class="stat bg-base-100 rounded-box shadow-sm border border-base-300">
+          <div class="stat-title">Categories</div>
+          <div class="stat-value">6</div>
+          <div class="stat-desc">Topics on your blog</div>
+        </div>
+      </div>
+
+      <!-- Recent articles -->
+      <div class="card bg-base-100 shadow-sm border border-base-300">
+        <div class="card-body p-0">
+          <div class="flex items-center justify-between gap-3 p-5">
+            <div>
+              <h2 class="card-title">Recent Articles</h2>
+              <p class="text-sm text-base-content/60">
+                Manage your latest posts
+              </p>
+            </div>
+
+            <a routerLink="/admin/articles/new" class="btn btn-primary btn-sm">
+              + Create Post
+            </a>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Status</th>
+                  <th class="hidden sm:table-cell">Category</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td class="font-medium">Understanding Soil Health</td>
+                  <td>
+                    <span class="badge badge-success badge-outline">
+                      Published
+                    </span>
+                  </td>
+                  <td class="hidden sm:table-cell">Agriculture</td>
+                  <td>
+                    <a
+                      routerLink="/admin/articles/8/edit"
+                      class="btn btn-ghost btn-xs"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="font-medium">Future of Farming</td>
+                  <td>
+                    <span class="badge badge-warning badge-outline">
+                      Draft
+                    </span>
+                  </td>
+                  <td class="hidden sm:table-cell">Agriculture</td>
+                  <td>
+                    <a
+                      routerLink="/admin/articles/9/edit"
+                      class="btn btn-ghost btn-xs"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="p-4 border-t border-base-300">
+            <a
+              routerLink="/admin/articles"
+              class="link link-primary text-sm"
+            >
+              View all articles →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="drawer-side z-20">
+      <label
+        for="admin-drawer"
+        aria-label="close sidebar"
+        class="drawer-overlay"
+      ></label>
+
+      <aside class="bg-base-100 min-h-full w-64 border-r border-base-300">
+        <div class="p-5 border-b border-base-300">
+          <p class="text-xs uppercase tracking-widest text-base-content/50">
+            Content Management
+          </p>
+        </div>
+
+        <ul class="menu p-4 gap-1">
+          <li>
+            <a routerLink="/admin" routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: true }">
+              <span>▦</span> Dashboard
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/articles" routerLinkActive="active">
+              <span>▤</span> Posts
+            </a>
+          </li>
+          <li>
+            <a routerLink="/admin/categories" routerLinkActive="active">
+              <span>▣</span> Categories
+            </a>
+          </li>
+        </ul>
+
+        <div class="divider px-4"></div>
+
+        <ul class="menu px-4">
+          <li>
+            <a routerLink="/">
+              <span>↗</span> View Website
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</div>
