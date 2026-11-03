@@ -1,0 +1,247 @@
+<div class="min-h-screen bg-base-200 p-4 sm:p-6 lg:p-8">
+  <div class="mx-auto max-w-5xl">
+
+    <!-- Header -->
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <h1 class="text-2xl font-bold">
+          {{ isEditMode ? 'Edit Article' : 'Create New Article' }}
+        </h1>
+        <p class="mt-1 text-sm text-base-content/60">
+          Write and manage your blog article.
+        </p>
+      </div>
+
+      <a routerLink="/admin/articles" class="btn btn-ghost btn-sm">
+        <span class="text-lg">←</span> Back to Articles
+      </a>
+    </div>
+
+    <form [formGroup]="form" class="space-y-6">
+
+      <!-- Basic Details -->
+      <div class="card bg-base-100 shadow-sm">
+        <div class="card-body space-y-4">
+          <h2 class="card-title text-lg">Article Details</h2>
+
+          <!-- Title -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">Title</span>
+            </label>
+
+            <input
+              type="text"
+              formControlName="title"
+              placeholder="Enter article title"
+              class="input input-bordered w-full"
+            />
+
+            @if (form.controls.title.touched && form.controls.title.invalid) {
+              <p class="mt-1 text-sm text-error">Title is required.</p>
+            }
+          </div>
+
+          <!-- Slug -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">Slug</span>
+            </label>
+
+            <input
+              type="text"
+              formControlName="slug"
+              placeholder="article-url-slug"
+              class="input input-bordered w-full"
+            />
+
+            <label class="label">
+              <span class="label-text-alt text-base-content/50">
+                URL: /articles/{{ form.controls.slug.value || 'article-slug' }}
+              </span>
+            </label>
+          </div>
+
+          <!-- Category -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">Category</span>
+            </label>
+
+            <select
+              formControlName="category_id"
+              class="select select-bordered w-full"
+            >
+              <option value="" disabled>Select a category</option>
+
+              @for (category of categories(); track category.id) {
+                <option [value]="category.id">
+                  {{ category.name }}
+                </option>
+              }
+            </select>
+          </div>
+
+          <!-- Tags -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text font-semibold">Tags</span>
+            </label>
+
+            <div class="flex flex-wrap items-center gap-2 rounded-lg border border-base-300 p-3">
+              @for (tag of tags(); track tag) {
+                <span class="badge badge-primary gap-2 py-3">
+                  {{ tag }}
+                  <button
+                    type="button"
+                    (click)="removeTag(tag)"
+                    class="font-bold"
+                    aria-label="Remove tag"
+                  >
+                    ×
+                  </button>
+                </span>
+              }
+
+              <input
+                type="text"
+                [(ngModel)]="tagInput"
+                [ngModelOptions]="{standalone: true}"
+                (keydown.enter)="$event.preventDefault(); addTag()"
+                placeholder="Type a tag and press Enter"
+                class="min-w-40 flex-1 bg-transparent text-sm outline-none"
+              />
+
+              <button
+                type="button"
+                (click)="addTag()"
+                class="btn btn-ghost btn-xs"
+              >
+                + Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cover Image -->
+      <div class="card bg-base-100 shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title text-lg">Cover Image</h2>
+
+          @if (imagePreview()) {
+            <div class="relative mt-2 max-w-xl">
+              <img
+                [src]="imagePreview()!"
+                alt="Article cover preview"
+                class="max-h-72 w-full rounded-lg border border-base-300 object-cover"
+              />
+
+              <button
+                type="button"
+                (click)="removeImage()"
+                class="btn btn-circle btn-error btn-sm absolute right-2 top-2"
+                aria-label="Remove cover image"
+              >
+                ×
+              </button>
+            </div>
+          } @else {
+            <label
+              class="mt-2 flex min-h-44 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-base-300 bg-base-200/50 transition hover:border-primary"
+            >
+              <span class="mb-2 text-3xl">☁</span>
+              <span class="font-semibold">Upload cover image</span>
+              <span class="mt-1 text-xs text-base-content/50">
+                JPG, PNG or WebP · Maximum 5 MB
+              </span>
+
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                class="hidden"
+                (change)="onImageSelected($event)"
+              />
+            </label>
+          }
+        </div>
+      </div>
+
+      <!-- Content Editor -->
+      <div class="card bg-base-100 shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title text-lg">Article Content</h2>
+
+          <div class="article-editor mt-2">
+            <quill-editor
+              formControlName="content"
+              [modules]="editorModules"
+              placeholder="Start writing your article..."
+              format="html"
+              [styles]="{ height: '400px' }"
+              class="block"
+            />
+          </div>
+
+          @if (form.controls.content.touched && form.controls.content.invalid) {
+            <p class="mt-2 text-sm text-error">Article content is required.</p>
+          }
+        </div>
+      </div>
+
+      <!-- Excerpt -->
+      <div class="card bg-base-100 shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title text-lg">Excerpt</h2>
+
+          <textarea
+            formControlName="excerpt"
+            rows="4"
+            maxlength="300"
+            placeholder="Write a short description for article cards and search previews..."
+            class="textarea textarea-bordered w-full"
+          ></textarea>
+
+          <div class="text-right text-xs text-base-content/50">
+            {{ form.controls.excerpt.value?.length || 0 }}/300
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-6">
+        <a routerLink="/admin/articles" class="btn btn-ghost">
+          Cancel
+        </a>
+
+        <div class="flex flex-wrap gap-2">
+          <button
+            type="button"
+            (click)="saveArticle('draft')"
+            [disabled]="isSaving()"
+            class="btn btn-outline"
+          >
+            Save Draft
+          </button>
+
+          <button
+            type="button"
+            (click)="saveArticle('published')"
+            [disabled]="isSaving()"
+            class="btn btn-primary"
+          >
+            @if (isSaving()) {
+              <span class="loading loading-spinner loading-sm"></span>
+              Saving...
+            } @else {
+              {{ isEditMode && form.controls.status.value === 'published'
+                ? 'Update & Publish'
+                : 'Publish Article' }}
+            }
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

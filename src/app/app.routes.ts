@@ -12,6 +12,11 @@ export const routes: Routes = [
             {path:'',component: Home}
         ]
     },
-    {path:'admin/login', component:AdminLogin,canActivate : [guestguardGuard]},
-    {path:'admin', component:AdminPanel,canActivate: [authGuard]}
+    {   path:'admin', 
+        loadChildren: () => import('./admin-panel/admin-routes.routes').then(m => m.adminRoutes)
+    },
+    {
+        path: "**",
+        redirectTo: ''
+    }
 ];

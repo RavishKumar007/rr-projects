@@ -9,6 +9,7 @@ import { BASE_URL } from '../../utils/constants';
 export class Auth {
   http = inject(HttpClient)
   login_api: string = BASE_URL + '/admin/login';
+  logouturl: string = BASE_URL + "/admin/logout";
   storage_ = inject(SafeStorageService);
 
   login(body?:any,url?:string){
@@ -20,6 +21,11 @@ export class Auth {
     const isLoggedIn = this.storage_.getItem("isLoggedIn");
     // console.log("islogged in : ",isLoggedIn)
     return !!(isLoggedIn === 'true');
+  }
+
+  logout(){
+    this.storage_.clear();
+    return this.http.post(this.logouturl,{});
   }
 
   setLogin(token:string){
