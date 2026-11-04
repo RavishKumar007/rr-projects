@@ -142,7 +142,7 @@ export class ArticleForm implements OnInit {
 
     if (!file) return;
 
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
 
     if (!allowedTypes.includes(file.type)) {
       alert('Please select a JPG, PNG, or WebP image.');

@@ -17,7 +17,7 @@ export class Api {
   create_url : string = BASE_URL + '/admin/createarticle';
   update_url : string = BASE_URL + '/admin/updatearticle';
 
-  getAllArticles(body:any = {limit : 7},url?:string):Observable<any>{
+  getAllArticles(body:any = {limit : 4},url?:string):Observable<any>{
    return  this.http.post(this.article_api,body).pipe(
       tap((data)=>{
         // console.log("articles : ",data);
