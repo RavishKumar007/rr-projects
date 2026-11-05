@@ -1,0 +1,300 @@
+
+<div class="p-6 space-y-6">
+
+  <!-- Header -->
+  <div class="flex flex-wrap justify-between items-center gap-4">
+    <div>
+      <h1 class="text-2xl font-bold">Articles</h1>
+      <p class="text-sm text-base-content/60">
+        Manage all your blog articles
+      </p>
+    </div>
+
+    <a routerLink="/admin/articles/new" class="btn btn-primary">
+      <span class="text-lg">+</span>
+      New Article
+    </a>
+  </div>
+
+  <!-- Statistics -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+    <div class="stat bg-base-100 shadow rounded-box">
+      <div class="stat-title">Total Articles</div>
+      <div class="stat-value text-2xl">
+        {{ counts().total }}
+      </div>
+    </div>
+
+    <div class="stat bg-base-100 shadow rounded-box">
+      <div class="stat-title">Published</div>
+      <div class="stat-value text-2xl text-success">
+        {{ counts().published }}
+      </div>
+    </div>
+
+    <div class="stat bg-base-100 shadow rounded-box">
+      <div class="stat-title">Drafts</div>
+      <div class="stat-value text-2xl text-warning">
+        {{ counts().drafted }}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Search -->
+  <div class="flex flex-col sm:flex-row gap-3">
+
+    <label class="input input-bordered flex items-center gap-2 w-full sm:max-w-md">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="w-5 h-5 opacity-50"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+
+      <input
+        type="text"
+        placeholder="Search articles by title or category..."
+        class="grow"
+        [value]="searchTerm()"
+        (input)="onSearch($any($event.target).value)"
+      />
+
+      @if (searchTerm()) {
+        <button
+          type="button"
+          class="btn btn-ghost btn-xs"
+          (click)="onSearch('')"
+          title="Clear search"
+        >
+          ✕
+        </button>
+      }
+    </label>
+
+  </div>
+
+  <!-- Loading -->
+  @if (loading()) {
+
+    <div class="flex justify-center py-12">
+      <span class="loading loading-spinner loading-lg"></span>
+    </div>
+
+  }
+
+  <!-- Error -->
+  @else if (error()) {
+
+    <div class="alert alert-error">
+      <span>{{ error() }}</span>
+
+      <button
+        class="btn btn-sm"
+        (click)="loadArticles()"
+      >
+        Retry
+      </button>
+    </div>
+
+  }
+
+  <!-- Articles -->
+  @else {
+
+    <div class="overflow-x-auto bg-base-100 rounded-box shadow">
+
+      <table class="table">
+
+        <thead>
+          <tr>
+            <th>Article</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          @for (article of articles(); track article.id) {
+
+            <tr>
+
+              <!-- Article -->
+              <td>
+                <div class="flex items-center gap-3 min-w-56">
+
+                  @if (article.cover_image) {
+
+                    <img
+                      [src]="article.cover_image"
+                      [alt]="article.title"
+                      class="w-12 h-12 rounded-lg object-cover"
+                    />
+
+                  } @else {
+
+                    <div class="w-12 h-12 rounded-lg bg-base-200 flex items-center justify-center">
+                      <span class="text-xs text-base-content/40">
+                        No img
+                      </span>
+                    </div>
+
+                  }
+
+                  <div>
+                    <div class="font-medium line-clamp-2">
+                      {{ article.title }}
+                    </div>
+
+                    <div class="text-xs text-base-content/50">
+                      {{ article.slug }}
+                    </div>
+                  </div>
+
+                </div>
+              </td>
+
+              <!-- Category -->
+              <td>
+                {{ article.category_name || 'Uncategorized' }}
+              </td>
+
+              <!-- Status -->
+              <td>
+                @if (article.status === 'published') {
+
+                  <span class="badge badge-success badge-sm">
+                    Published
+                  </span>
+
+                } @else {
+
+                  <span class="badge badge-warning badge-sm">
+                    Draft
+                  </span>
+
+                }
+              </td>
+
+              <!-- Date -->
+              <td class="whitespace-nowrap">
+                {{
+                  (article.published_at || article.created_at)
+                    | date: 'dd MMM yyyy'
+                }}
+              </td>
+
+              <!-- Actions -->
+              <td>
+                <div class="flex justify-end gap-2">
+
+                  @if (article.status === 'published') {
+
+                    <a
+                      [routerLink]="['/articles', article.slug]"
+                      target="_blank"
+                      class="btn btn-ghost btn-xs"
+                      title="View article"
+                    >
+                      ↗
+                    </a>
+
+                  }
+
+                  <a
+                    [routerLink]="['/admin/articles', article.id, 'edit']"
+                    class="btn btn-ghost btn-xs"
+                    title="Edit article"
+                  >
+                    Edit
+                  </a>
+
+                  <button
+                    class="btn btn-ghost btn-xs text-error"
+                    (click)="deleteArticle(article)"
+                    title="Delete article"
+                  >
+                    Delete
+                  </button>
+
+                </div>
+              </td>
+
+            </tr>
+
+          } @empty {
+
+            <tr>
+              <td colspan="5" class="text-center py-12">
+                @if (searchTerm()) {
+                  <p class="font-medium">No matching articles found</p>
+                  <p class="text-sm text-base-content/50">
+                    Try a different search term.
+                  </p>
+                } @else {
+                  <p class="font-medium">No articles found</p>
+                }
+              </td>
+            </tr>
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <!-- Pagination -->
+    @if (filteredTotal() > 0) {
+
+      <div class="flex flex-wrap justify-between items-center gap-3">
+
+        <p class="text-sm text-base-content/60">
+          Showing
+          {{ (currentPage() - 1) * pageSize + 1 }}
+          -
+          {{ Math.min(currentPage() * pageSize, filteredTotal()) }}
+          of {{ filteredTotal() }} articles
+        </p>
+
+        <div class="join">
+
+          <button
+            class="join-item btn btn-sm"
+            [disabled]="currentPage() === 1 || loading()"
+            (click)="previousPage()"
+          >
+            Previous
+          </button>
+
+          <button class="join-item btn btn-sm btn-active">
+            {{ currentPage() }} / {{ totalPages() }}
+          </button>
+
+          <button
+            class="join-item btn btn-sm"
+            [disabled]="currentPage() >= totalPages() || loading()"
+            (click)="nextPage()"
+          >
+            Next
+          </button>
+
+        </div>
+
+      </div>
+
+    }
+
+  }
+
+</div>
