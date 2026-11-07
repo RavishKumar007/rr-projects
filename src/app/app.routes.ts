@@ -11,9 +11,10 @@ export const routes: Routes = [
     {path:'',component:Navbar,
         children:[
             {path:'',component: Home},
-            {path:'article/:slug', component: ArticleView}
+
         ]
     },
+    {path:'article/:slug', loadComponent: ()=> import('./view-article/view-article').then(c =>c.ArticleView)},
     {   path:'admin',
         loadChildren: () => import('./admin-panel/admin-routes.routes').then(m => m.adminRoutes)
     },
