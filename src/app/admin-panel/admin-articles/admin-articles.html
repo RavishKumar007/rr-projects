@@ -200,12 +200,24 @@
                   @if (article.status === 'published') {
 
                     <a
-                      [routerLink]="['/articles', article.slug]"
+                      [routerLink]="['/article', article.slug]"
                       target="_blank"
-                      class="btn btn-ghost btn-xs"
+                     class="link link-primary"
                       title="View article"
                     >
-                      ↗
+                      Click ↗️
+                    </a>
+
+                  }
+                                    @if (article.status === 'draft') {
+
+                    <a
+                      [routerLink]="['/admin/article/preview', article.id]"
+                      target="_blank"
+                      class="link link-warning"
+                      title="View article"
+                    >
+                      Preview ⬈
                     </a>
 
                   }

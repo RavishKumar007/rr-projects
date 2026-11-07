@@ -1,0 +1,182 @@
+<!-- Loading -->
+@if (loading) {
+  <div class="min-h-[70vh] flex items-center justify-center">
+    <span class="loading loading-spinner loading-lg text-primary"></span>
+  </div>
+}
+
+<!-- Error -->
+@else if (error) {
+  <div class="min-h-[70vh] flex flex-col items-center justify-center gap-4 px-4">
+    <div class="text-5xl">📄</div>
+    <h2 class="text-2xl font-bold">{{ error }}</h2>
+    <a routerLink="/" class="btn btn-primary">Back to Home</a>
+  </div>
+}
+
+<!-- Article -->
+@else if (article) {
+  <div class="min-h-screen bg-base-100">
+
+    <!-- Header -->
+    <header class="border-b border-base-300">
+      <div class="navbar max-w-7xl mx-auto px-4 md:px-8">
+        <div class="flex-1">
+          <a routerLink="/" class="text-xl md:text-2xl font-bold text-primary">
+            RR Projects
+          </a>
+        </div>
+
+        <div class="flex-none">
+          <a routerLink="/" class="btn btn-ghost btn-sm">
+            <i class="fa-solid fa-house"></i>
+            Home
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Draft preview notice -->
+    @if (isPreview && article.status !== 'published') {
+      <div class="bg-warning/10 border-b border-warning/30">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center gap-2">
+          <span class="badge badge-warning">Draft Preview</span>
+          <span class="text-sm text-base-content/70">
+            This article is not publicly published.
+          </span>
+        </div>
+      </div>
+    }
+
+    <!-- Main content -->
+    <main class="max-w-5xl mx-auto px-4 py-10 md:py-16">
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumbs text-sm text-base-content/50 mb-8">
+        <ul>
+          <li><a routerLink="/">Home</a></li>
+          <li>
+            @if (article.category_name) {
+              {{ article.category_name }}
+            } @else {
+              Articles
+            }
+          </li>
+          <li class="text-base-content font-medium">
+            {{ article.title }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Article heading -->
+      <article>
+
+        <!-- Category -->
+        @if (article.category_name) {
+          <div class="mb-4">
+            <span class="badge badge-primary badge-outline">
+              {{ article.category_name }}
+            </span>
+          </div>
+        }
+
+        <!-- Title -->
+        <h1 class="text-3xl md:text-5xl font-bold leading-tight tracking-tight mb-5">
+          {{ article.title }}
+        </h1>
+
+        <!-- Excerpt -->
+        @if (article.excerpt) {
+          <p class="text-lg md:text-xl text-base-content/60 leading-relaxed mb-8">
+            {{ article.excerpt }}
+          </p>
+        }
+
+        <!-- Author and date -->
+        <div class="flex flex-wrap items-center justify-between gap-4 border-y border-base-300 py-5 mb-8">
+
+          <div class="flex items-center gap-3">
+            <div class="avatar placeholder">
+              <div class="w-11 h-11 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                <span class="text-lg font-semibold leading-none">A</span>
+              </div>
+            </div>
+
+            <div>
+              <p class="font-semibold text-sm">
+                {{ article.author_name || 'Admin' }}
+              </p>
+
+              <p class="text-sm text-base-content/50">
+                @if (formattedDate) {
+                  {{ formattedDate | date:'MMMM d, y' }}
+                }
+                <span class="mx-1">·</span>
+                {{ readingTime }} min read
+              </p>
+            </div>
+          </div>
+
+          <!-- Share -->
+          <button
+            type="button"
+            class="btn btn-ghost btn-sm"
+            (click)="copyArticleLink()"
+          >
+            <i class="fa-solid fa-link"></i>
+            Copy link
+          </button>
+
+        </div>
+
+        <!-- Cover image -->
+        @if (article.cover_image) {
+          <figure class="mb-10">
+            <img
+              [src]="article.cover_image"
+              [alt]="article.title"
+              class="w-full max-h-[520px] object-cover rounded-2xl"
+            />
+          </figure>
+        }
+
+        <!-- Article body -->
+        <div class="article-content">
+          <div [innerHTML]="article.content"></div>
+        </div>
+
+      </article>
+
+      <!-- Bottom share -->
+      <div class="border-t border-base-300 mt-14 pt-8 flex flex-wrap justify-between items-center gap-4">
+        <div>
+          <h3 class="font-bold text-lg">Enjoyed this article?</h3>
+          <p class="text-sm text-base-content/60">
+            Share it with someone who might find it useful.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-primary btn-outline"
+          (click)="copyArticleLink()"
+        >
+          <i class="fa-solid fa-share-nodes"></i>
+          Share article
+        </button>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer footer-center bg-base-200 text-base-content p-8 mt-10">
+      <aside>
+        <p class="font-bold text-lg">RR Projects</p>
+        <p class="text-sm text-base-content/60">
+          Education, knowledge and learning.
+        </p>
+      </aside>
+    </footer>
+
+  </div>
+}

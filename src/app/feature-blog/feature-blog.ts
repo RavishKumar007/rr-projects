@@ -1,8 +1,9 @@
 import { Component, input, Input, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-feature-blog',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './feature-blog.html',
   styleUrl: './feature-blog.css',
 })
