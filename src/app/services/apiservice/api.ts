@@ -16,6 +16,7 @@ export class Api {
   article_by_id : string = BASE_URL + '/admin/getarticlebyid';
   create_url : string = BASE_URL + '/admin/createarticle';
   update_url : string = BASE_URL + '/admin/updatearticle';
+  create_category_api : string = BASE_URL + '/admin/createcategory'
 
   getAllArticles(body:any = {limit : 4},url?:string):Observable<any>{
    return  this.http.post(this.article_api,body).pipe(
@@ -49,6 +50,10 @@ export class Api {
     console.log("body : ",body)
     return this.http.post(this.create_url,body);
 
+  }
+
+  createCategory(body:any){
+    return this.http.post(this.create_category_api,body);
   }
 
 }

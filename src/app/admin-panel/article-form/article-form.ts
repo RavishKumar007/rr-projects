@@ -51,11 +51,17 @@ export class ArticleForm implements OnInit {
 
   editorModules = {
     toolbar: [
+      [{ 'font': [] }, { 'size': [] }],
       ['bold', 'italic', 'underline', 'strike'],
-      [{ header: 1 }, { header: 2 }, { header: 3 }],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      ['blockquote', 'link', 'image'],
-      [{ align: [] }],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'script': 'sub' }, { 'script': 'super' }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+      [{ 'indent': '-1' }, { 'indent': '+1' }],
+      [{ 'direction': 'rtl' }],
+      [{ 'align': [] }],
+      ['blockquote', 'code-block'],
+      ['link', 'image', 'video', 'formula'],
       ['clean']
     ]
   };

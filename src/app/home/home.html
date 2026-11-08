@@ -1,11 +1,99 @@
-<h1>Welcome to rr-projects, we write about Technology, People and Culture</h1>
-<hr>
-@if (feature_blog) {
-    <app-feature-blog  [data]="feature_blog"></app-feature-blog>
-}
 
-<hr>
-@if(recent_blog){
-    <app-blog-card [data]="recent_blog"></app-blog-card>
+<main class="min-h-screen bg-base-100">
 
-}
+  <!-- Hero Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-10">
+
+    <div class="max-w-3xl">
+      <span class="badge badge-primary badge-outline mb-5">
+        IDEAS THAT MATTER
+      </span>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+        Exploring the world through
+        <span class="text-primary">technology, people & culture.</span>
+      </h1>
+
+      <p class="mt-6 text-base sm:text-lg text-base-content/65 leading-relaxed max-w-2xl">
+        RR Projects is a space for ideas, insights, and stories that help
+        us understand the changing world around us.
+      </p>
+
+    </div>
+
+    <div class="divider my-10"></div>
+
+    <!-- Featured Article -->
+    @if (feature_blog) {
+      <section>
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="text-xl sm:text-2xl font-bold tracking-tight">
+            Editor's Pick
+          </h2>
+          <span class="text-xs uppercase tracking-widest text-base-content/50">
+            Featured Story
+          </span>
+        </div>
+
+        <app-feature-blog [data]="feature_blog"></app-feature-blog>
+      </section>
+    }
+
+  </section>
+
+  <!-- Recent Articles -->
+  @if (recent_blog) {
+    <section class="bg-base-200/50 border-y border-base-300/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              Fresh perspectives
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-bold mt-2">
+              Latest Articles
+            </h2>
+            <p class="text-base-content/60 mt-2">
+              Discover our latest stories and insights.
+            </p>
+          </div>
+
+          <a routerLink="/articles"
+             class="link link-primary font-semibold text-sm">
+            Explore all articles →
+          </a>
+        </div>
+
+        <app-blog-card [data]="recent_blog"></app-blog-card>
+
+      </div>
+    </section>
+  }
+
+  <!-- Closing Brand Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="rounded-2xl bg-neutral text-neutral-content px-6 sm:px-10 py-10 sm:py-14">
+      <div class="max-w-2xl">
+        <span class="text-sm font-semibold uppercase tracking-widest text-primary">
+          RR Projects
+        </span>
+
+        <h2 class="text-2xl sm:text-3xl font-bold mt-3">
+          Good ideas deserve to be shared.
+        </h2>
+
+        <p class="mt-4 text-neutral-content/70 leading-relaxed">
+          From emerging technologies to human stories and cultural
+          perspectives, explore ideas worth thinking about.
+        </p>
+
+        <a routerLink="/articles" class="btn btn-primary mt-7">
+          Start Exploring
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+

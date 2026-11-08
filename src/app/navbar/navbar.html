@@ -1,39 +1,134 @@
-<nav class="bg-white border-gray-200 py-2.5 dark:bg-gray-900 border-b border-[#ebebeb]">
-    <div class="flex flex-wrap items-center max-w-screen-xl px-4 mx-auto">
-        <a href="#" class="flex items-center">
-            <img src="/assets/rr-proj-logo.jpg" class="h-6 mr-3 sm:h-9" alt="rr-projects Logo">
-            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">RR-PROJECTS</span>
+
+<nav class="bg-white border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+
+  <div class="max-w-screen-xl mx-auto px-4">
+
+    <!-- Main Navbar -->
+    <div class="flex items-center justify-between py-3">
+
+      <!-- Logo -->
+      <a routerLink="/" class="flex items-center shrink-0">
+        <img
+          src="/assets/rr-proj-logo.png"
+          class="h-8 sm:h-9 mr-3"
+          alt="RR Projects Logo"
+        />
+
+        <span class="text-xl font-bold whitespace-nowrap dark:text-white">
+          RR PROJECTS
+        </span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden lg:flex items-center gap-8">
+
+        <a routerLink="/articles" class="text-gray-700 hover:text-primary">
+          All Articles
         </a>
-        <div class="flex items-center gap-4 lg:order-2 ml-auto">
-            <a href="#"
-                class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">About</a>
-            <button class="btn  btn-success rounded-[1vw] text-white sub-btn">Subscribe</button>
-        </div>
-        <div class="items-center justify-between w-full lg:flex lg:w-auto lg:order-1 ml-[40px]" id="mobile-menu-2">
-            <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                <li>
-                    <a href="#"
-                        class="block py-2 pl-3 pr-4 text-white bg-purple-700 rounded lg:bg-transparent lg:text-purple-700 lg:p-0 dark:text-white"
-                        aria-current="page">All Articles</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Culture</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">LifeStyle</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">People</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Technology</a>
-                </li>
-            </ul>
-        </div>
+
+        <a routerLink="/category/culture" class="text-gray-700 hover:text-primary">
+          Culture
+        </a>
+
+        <a routerLink="/category/lifestyle" class="text-gray-700 hover:text-primary">
+          Lifestyle
+        </a>
+
+        <a routerLink="/category/people" class="text-gray-700 hover:text-primary">
+          People
+        </a>
+
+        <a routerLink="/category/technology" class="text-gray-700 hover:text-primary">
+          Technology
+        </a>
+
+      </div>
+
+      <!-- Desktop Actions -->
+      <div class="hidden lg:flex items-center gap-4">
+
+        <a routerLink="/about" class="text-gray-700 hover:text-primary">
+          About
+        </a>
+
+        <button class="btn btn-success text-white">
+          Subscribe
+        </button>
+
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button
+        class="btn btn-ghost btn-square lg:hidden"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen"
+        aria-label="Toggle navigation menu"
+      >
+        @if (menuOpen) {
+          <span class="text-2xl">✕</span>
+        } @else {
+          <span class="text-2xl">☰</span>
+        }
+      </button>
+
     </div>
+
+    <!-- Mobile Menu -->
+    @if (menuOpen) {
+      <div class="lg:hidden border-t border-gray-200 dark:border-gray-700 py-3">
+
+        <div class="flex flex-col">
+
+          <a routerLink="/articles"
+             (click)="closeMenu()"
+             class="px-3 py-3 rounded-lg hover:bg-base-200">
+            All Articles
+          </a>
+
+          <a routerLink="/category/culture"
+             (click)="closeMenu()"
+             class="px-3 py-3 rounded-lg hover:bg-base-200">
+            Culture
+          </a>
+
+          <a routerLink="/category/lifestyle"
+             (click)="closeMenu()"
+             class="px-3 py-3 rounded-lg hover:bg-base-200">
+            Lifestyle
+          </a>
+
+          <a routerLink="/category/people"
+             (click)="closeMenu()"
+             class="px-3 py-3 rounded-lg hover:bg-base-200">
+            People
+          </a>
+
+          <a routerLink="/category/technology"
+             (click)="closeMenu()"
+             class="px-3 py-3 rounded-lg hover:bg-base-200">
+            Technology
+          </a>
+
+          <a routerLink="/about"
+             (click)="closeMenu()"
+             class="px-3 py-3 rounded-lg hover:bg-base-200">
+            About
+          </a>
+
+          <button
+            class="btn btn-success text-white mt-3"
+            (click)="closeMenu()"
+          >
+            Subscribe
+          </button>
+
+        </div>
+
+      </div>
+    }
+
+  </div>
+
 </nav>
+
 <router-outlet></router-outlet>

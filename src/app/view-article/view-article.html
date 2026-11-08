@@ -140,10 +140,11 @@
           </figure>
         }
 
-        <!-- Article body -->
-        <div class="article-content">
-          <div [innerHTML]="article.content"></div>
-        </div>
+      <!-- Article body -->
+      <div class="article-content">
+      <quill-view-html [content]="article.content" theme="snow"></quill-view-html>
+      </div>
+
 
       </article>
 

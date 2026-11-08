@@ -4,11 +4,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ArticleService } from '../services/articleservice/articleservice';
 import { Api } from '../services/apiservice/api';
+// 1. Import the specific presentation component from ngx-quill
+import { QuillViewHTMLComponent  } from 'ngx-quill';
 
 @Component({
   selector: 'app-article-view',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink,QuillViewHTMLComponent  ],
   templateUrl: './view-article.html',
   styleUrl: './view-article.css'
 })

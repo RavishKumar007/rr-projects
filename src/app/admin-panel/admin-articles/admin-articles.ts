@@ -1,9 +1,10 @@
 
-import { Component, signal, computed, OnDestroy } from '@angular/core';
+import { Component, signal, computed, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Subject, debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { Api } from '../../services/apiservice/api';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-admin-articles',
@@ -20,7 +21,7 @@ export class AdminArticles implements OnDestroy {
     published: 0,
     drafted: 0
   });
-
+  private location = inject(Location);
   filteredTotal = signal(0);
 
   loading = signal(true);
@@ -119,4 +120,8 @@ export class AdminArticles implements OnDestroy {
 
     // Connect your existing delete API method here.
   }
+
+  goBack() {
+  this.location.back();
+}
 }
