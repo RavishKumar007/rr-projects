@@ -11,6 +11,6 @@ export class BlogCard implements OnInit {
   data = input<any>();
 
   ngOnInit(): void {
-    console.log("recent -",this.data())
+    // console.log("recent -",this.data())
   }
 }

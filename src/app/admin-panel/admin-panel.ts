@@ -60,7 +60,7 @@ export class AdminPanel implements OnInit{
       next: (res:any) => {
         this.articles = res.articles;
         this.counts = res.counts;
-        console.log("articles ",res)
+        // console.log("articles ",res)
       },
       error: (err) => {
         console.log("error while get articles for admin",err)
@@ -70,7 +70,7 @@ export class AdminPanel implements OnInit{
   getCategories(){
     this.apiService.getCategoriesForAdmin({}).subscribe({
       next: (res:any) => {
-        console.log("categories ",res)
+        // console.log("categories ",res)
         this.categories = res.data;
       },
       error: (err) => {

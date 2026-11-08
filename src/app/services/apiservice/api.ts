@@ -47,7 +47,7 @@ export class Api {
   }
 
   createArticle(body:any){
-    console.log("body : ",body)
+    // console.log("body : ",body)
     return this.http.post(this.create_url,body);
 
   }

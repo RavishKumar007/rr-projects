@@ -3,7 +3,7 @@ import { FeatureBlog } from '../feature-blog/feature-blog';
 import { BlogCard } from '../blog-card/blog-card';
 import { Api } from '../services/apiservice/api';
 import { isPlatformBrowser } from '@angular/common';
-  
+
 @Component({
   selector: 'app-home',
   imports: [FeatureBlog,BlogCard],
@@ -24,13 +24,13 @@ export class Home implements OnInit{
   }
 
   getArticles(){
-    
-    this.api_.getAllArticles().subscribe((res)=>{
-  console.log('Platform:', isPlatformBrowser(this.platformId)
-    ? 'browser'
-    : 'server');
 
-  console.log('API response:', res);
+    this.api_.getAllArticles().subscribe((res)=>{
+  // console.log('Platform:', isPlatformBrowser(this.platformId)
+  //   ? 'browser'
+  //   : 'server');
+
+  // console.log('API response:', res);
       // console.log("xyz",res);
         this.feature_blog = res?.articles[0]; // last is feature blog
         this.recent_blog = res?.articles.slice(1); // recent blogs

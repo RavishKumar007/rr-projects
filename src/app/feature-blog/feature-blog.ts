@@ -12,7 +12,7 @@ export class FeatureBlog implements OnInit {
   data =  input<any>();
 
   ngOnInit(): void {
-    console.log("feature ",this.data())
+    // console.log("feature ",this.data())
   }
 
 }

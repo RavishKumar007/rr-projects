@@ -5,9 +5,9 @@ import { catchError, throwError } from 'rxjs';
 
 export const adminCredentialsInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
-  console.log("inter cept");
+  // console.log("inter cept");
   if(req.url.includes('/admin')){
-    console.log("admin")
+    // console.log("admin")
     req = req.clone({
       withCredentials:true
     })

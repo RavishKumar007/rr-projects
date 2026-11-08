@@ -88,11 +88,11 @@ export class ArticleForm implements OnInit {
   loadCategories() {
     this.apiService.getCategoriesForAdmin({}).subscribe({
       next: (res:any) => {
-        console.log("categories ",res)
+        // console.log("categories ",res)
         this.categories.set(res.data);
       },
       error: (err) => {
-        console.log("error while get categories for admin",err)
+        console.error("error while get categories for admin",err)
       }
     });
   }
@@ -189,7 +189,7 @@ export class ArticleForm implements OnInit {
       status,
       tags: this.tags()
     };
-    console.log("artiles ",article)
+    // console.log("artiles ",article)
     Object.entries(article).forEach(([key, value]) => {
       formData.append(key, typeof value === 'string' ? value : JSON.stringify(value));
     });
@@ -198,7 +198,7 @@ export class ArticleForm implements OnInit {
     if (image) {
       formData.append('cover_image', image);
     }
-    console.log("form data : ",formData)
+    // console.log("form data : ",formData)
 
     const request = this.isEditMode
       ? this.apiService.updateArticle(this.articleId!, formData)
